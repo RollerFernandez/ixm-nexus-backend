@@ -9,3 +9,4 @@ global using Ixm.Nexus.Users.Domain.Models;
 global using Ixm.Nexus.Users.Infrastructure.Repository.Interfaces;
 global using Ixm.Nexus.Users.Infrastructure.Repository.Interfaces.Data;
 global using Ixm.Nexus.Users.Application.Dto;
+global using Ixm.Nexus.Commons;
