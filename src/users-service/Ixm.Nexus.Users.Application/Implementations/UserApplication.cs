@@ -43,7 +43,7 @@ namespace Ixm.Nexus.Users.Application.Implementations
 
             var userEntity = new UserEntity
             {
-                Codigo = code,
+                //Codigo = code,
                 Name = name
 
             };

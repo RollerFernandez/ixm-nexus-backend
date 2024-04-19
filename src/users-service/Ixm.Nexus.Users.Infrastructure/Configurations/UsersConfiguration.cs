@@ -9,7 +9,6 @@
             entityBuilder.HasKey(c => c.Id);
             entityBuilder.Property(e => e.Name).HasColumnName("nv_name");
             entityBuilder.Property(e => e.LastName).HasColumnName("nv_lastName");
-            entityBuilder.Property(e => e.Codigo);
             Configure(entityBuilder);
         }
 
