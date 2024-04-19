@@ -1,5 +1,4 @@
-﻿using Ixm.Nexus.Commons.Configurations.Base;
-
+﻿
 namespace Ixm.Nexus.Commons.Configurations
 {
     public class NexusConfiguration
