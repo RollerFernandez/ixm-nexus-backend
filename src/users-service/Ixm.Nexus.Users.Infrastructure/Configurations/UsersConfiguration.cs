@@ -19,7 +19,7 @@
             entityBuilder.Property(e => e.UpdatedAt).HasColumnName("dt_updatedAt");
             entityBuilder.Property(e => e.CreatedBy).HasColumnName("nv_createdBy").IsRequired();
             entityBuilder.Property(e => e.UpdatedBy).HasColumnName("nv_updatedBy");
-            entityBuilder.Property(e => e.RowStatus).HasColumnName("ch_status").IsRequired();
+            entityBuilder.Property(e => e.Status).HasColumnName("ch_status").IsRequired();
             Configure(entityBuilder);
         }
 
