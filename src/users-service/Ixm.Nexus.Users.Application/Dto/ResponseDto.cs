@@ -1,4 +1,6 @@
-﻿namespace Ixm.Nexus.Users.Application.Dto
+﻿using static Ixm.Nexus.Commons.Constants.Common;
+
+namespace Ixm.Nexus.Users.Application.Dto
 {
     public class ResponseDTO
     {
