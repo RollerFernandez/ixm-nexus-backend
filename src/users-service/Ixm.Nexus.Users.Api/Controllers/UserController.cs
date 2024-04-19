@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ixm.Nexus.Users.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly Lazy<IUserApplication> _userApplication;
@@ -20,7 +22,8 @@ namespace Ixm.Nexus.Users.Api.Controllers
         }
 
         private IUserApplication UserApplication => _userApplication.Value;
-        
+
+        [HttpGet]
         public async Task<IActionResult> ListofUsers()
         {
             ResponseDTO response;
@@ -41,7 +44,7 @@ namespace Ixm.Nexus.Users.Api.Controllers
             }
             catch (Exception ex)
             {
-                response = new ResponseDTO { status = Constants.Common.EstadoRespuesta.ERROR_TECNICO, sucess = false };
+                response = new ResponseDTO { status = Constants.EstadoRespuesta.ERROR_TECNICO, sucess = false };
                 _logger.LogError(response.transactionId, ex.Message, ex);
             }
 
