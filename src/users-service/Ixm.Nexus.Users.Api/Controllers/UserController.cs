@@ -41,7 +41,7 @@ namespace Ixm.Nexus.Users.Api.Controllers
             }
             catch (Exception ex)
             {
-                response = new ResponseDTO { status = Constants.Common.EstadoRespuesta.ERROR_TECNICO, sucess = false };
+                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, sucess = false };
                 _logger.LogError(response.transactionId, ex.Message, ex);
             }
 
