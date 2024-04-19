@@ -27,7 +27,7 @@ namespace Ixm.Nexus.Users.Application.Implementations
             return response;
         }
 
-        public async Task<ResponseDTO> GetByUser(string codigo)
+        public async Task<ResponseDTO> RegisterUser(UserEntity u)
         {
             var response = new ResponseDTO();
 
@@ -51,7 +51,7 @@ namespace Ixm.Nexus.Users.Application.Implementations
             await UnitOfWork.Set<UserEntity>().AddAsync(userEntity);
             UnitOfWork.SaveChanges();
 
-            response.data = userEntity;
+            response.data = u;
             return response;
         }
     }
