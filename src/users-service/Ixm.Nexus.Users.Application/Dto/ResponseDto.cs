@@ -7,7 +7,7 @@ namespace Ixm.Nexus.Users.Application.Dto
     {
         public ResponseDTO()
         {
-            this.status = EstadoRespuesta.OK;
+            this.status = StatusResponse.OK;
             this.sucess = true;
             this.transactionId = DateTime.Now.ToString(Constants.Core.DateTimeFormats.DD_MM_YYYY_HH_MM_SS_FFF);
         }
