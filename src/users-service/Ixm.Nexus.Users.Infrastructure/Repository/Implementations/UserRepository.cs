@@ -12,7 +12,7 @@
 
         public async Task<PaginacionEntity<UserEntity>> List(int pagina, int limite)
         {
-            var query = context.UserEntity.AsQueryable().Where(x => x.RowStatus == "A");
+            var query = context.UserEntity.AsQueryable().Where(x => x.Status == "A");
 
             var total = await query.CountAsync();
 

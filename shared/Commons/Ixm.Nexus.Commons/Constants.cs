@@ -185,7 +185,11 @@ namespace Ixm.Nexus.Commons
 
         }
 
-
+        public static class EstadoRespuesta {
+            public const int ERROR_FUNCIONAL = 1;
+            public const int ERROR_TECNICO = 2;
+            public const int OK = 0;
+        }
     }
     
 }

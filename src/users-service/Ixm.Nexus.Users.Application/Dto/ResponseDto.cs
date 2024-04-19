@@ -1,5 +1,5 @@
 ﻿using Ixm.Nexus.Commons;
-using static Ixm.Nexus.Commons.Constants.Common;
+using static Ixm.Nexus.Commons.Constants;
 
 namespace Ixm.Nexus.Users.Application.Dto
 {

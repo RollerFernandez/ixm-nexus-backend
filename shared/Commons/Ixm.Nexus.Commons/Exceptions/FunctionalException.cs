@@ -1,4 +1,6 @@
 ﻿
+
+
 namespace Ixm.Nexus.Commons.Exceptions
 {
     [Serializable()]

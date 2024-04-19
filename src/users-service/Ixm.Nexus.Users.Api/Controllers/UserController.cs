@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ixm.Nexus.Users.Api.Controllers
 {
-    [Route("users")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly Lazy<IUserApplication> _userApplication;
