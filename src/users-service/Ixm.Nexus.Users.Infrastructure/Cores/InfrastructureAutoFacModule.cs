@@ -7,7 +7,7 @@ public class InfrastructureAutoFacModule : Autofac.Module
     {
         base.Load(builder);
 
-        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+        var unused = builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
             .AsImplementedInterfaces()
             .InstancePerLifetimeScope();
     }
