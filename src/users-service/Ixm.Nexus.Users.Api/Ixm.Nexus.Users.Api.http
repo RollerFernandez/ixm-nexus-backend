@@ -1,0 +1,6 @@
+@Ixm.Nexus.Users.Api_HostAddress = http://localhost:5145
+
+GET {{Ixm.Nexus.Users.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
