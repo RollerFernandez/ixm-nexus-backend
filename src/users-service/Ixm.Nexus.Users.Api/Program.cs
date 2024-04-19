@@ -5,6 +5,7 @@ using Ixm.Nexus.Users.Application.Interfaces;
 using Ixm.Nexus.Users.Application.Implementations;
 using Ixm.Nexus.Users.Infrastructure.Repository.Implementations.Data;
 using Microsoft.EntityFrameworkCore;
+using Ixm.Nexus.Users.Application.Cores;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,15 +18,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    var unused = options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(options => {
-        var unused = options.RegisterModule(new InfrastructureAutoFacModule());
-        var unused1 = options.RegisterType<UserApplication>().As<IUserApplication>();
+        var inf = options.RegisterModule(new InfrastructureAutoFacModule());
+        var app = options.RegisterModule(new ApplicationAutoFacModule());
         //options.RegisterModule(new ApplicationAutoFacModule());
         //options.RegisterModule(new ExceptionMiddleware());
     });

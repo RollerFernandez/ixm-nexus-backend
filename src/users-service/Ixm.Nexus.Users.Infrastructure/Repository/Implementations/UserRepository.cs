@@ -16,13 +16,7 @@
 
             var total = await query.CountAsync();
 
-            var result = await query.OrderBy(x => x.Id).Select(x => new UserEntity()
-            {
-                Id = x.Id,
-                //Codigo = x.Codigo,
-                Name = x.Name,
-
-            }).Skip(limite * (pagina - 1)).Take(limite).ToListAsync();
+            var result = await query.OrderBy(x => x.Id).Skip(limite * (pagina - 1)).Take(limite).ToListAsync();
 
 
             return new PaginacionEntity<UserEntity>
