@@ -4,8 +4,6 @@
     {
         Task<ResponseDTO> ListUsers(int Pagina, int Limite);
 
-        Task<ResponseDTO> GetByUser(string codigo);
-
-        Task<ResponseDTO> RegisterUser(string code, string name);
+        Task<ResponseDTO> RegisterUser(UserEntity u);
 }
 }

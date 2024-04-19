@@ -12,18 +12,11 @@
 
         public async Task<PaginacionEntity<UserEntity>> List(int pagina, int limite)
         {
-            var query = context.UserEntity.AsQueryable().Where(x => x.RowStatus);
+            var query = context.UserEntity.AsQueryable().Where(x => x.RowStatus == "A");
 
             var total = await query.CountAsync();
 
-            var result = await query.OrderBy(x => x.Id).Select(x => new UserEntity()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                Name = x.Name,
-
-            }).Skip(limite * (pagina - 1)).Take(limite).ToListAsync();
-
+            var result = await query.OrderBy(x => x.Id).Skip(limite * (pagina - 1)).Take(limite).ToListAsync();
 
             return new PaginacionEntity<UserEntity>
             {
@@ -31,11 +24,6 @@
                 Pages = Convert.ToInt32(Math.Ceiling(total / (limite * 1d))),
                 Total = total
             };
-        }
-
-        public async Task<UserEntity> GetByCode(string codigo)
-        {
-            return await context.UserEntity.AsQueryable().Where(x => x.Codigo == codigo).FirstOrDefaultAsync();
         }
     }
 }

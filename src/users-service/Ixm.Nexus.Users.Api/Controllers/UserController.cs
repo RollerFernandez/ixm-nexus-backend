@@ -5,9 +5,9 @@ using Ixm.Nexus.Users.Application.Dto;
 using Ixm.Nexus.Users.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace Ixm.Nexus.Users.Api.Controllers
 {
+    [Route("users")]
     public class UserController : ControllerBase
     {
         private readonly Lazy<IUserApplication> _userApplication;
@@ -20,7 +20,8 @@ namespace Ixm.Nexus.Users.Api.Controllers
         }
 
         private IUserApplication UserApplication => _userApplication.Value;
-        
+
+        [HttpGet]
         public async Task<IActionResult> ListofUsers()
         {
             ResponseDTO response;
