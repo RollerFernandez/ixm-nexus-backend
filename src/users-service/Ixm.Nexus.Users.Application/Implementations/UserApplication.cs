@@ -27,24 +27,14 @@ namespace Ixm.Nexus.Users.Application.Implementations
             return response;
         }
 
-        public async Task<ResponseDTO> GetByUser(string codigo)
-        {
-            var response = new ResponseDTO();
-
-            response.data = await UserRepository.GetByCode(codigo);
-            return response;
-            
-            //throw new FunctionalException("Error al procesar", "El usuario ya se encuentra matriculado");
-        }
-
-        public async Task<ResponseDTO> RegisterUser(string code, string name)
+        public async Task<ResponseDTO> RegisterUser(UserEntity u)
         {
             var response = new ResponseDTO();
 
             var userEntity = new UserEntity
             {
-                Codigo = code,
-                Name = name
+                //Codigo = code,
+                Name = u.Name
 
             };
 

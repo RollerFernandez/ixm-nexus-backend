@@ -5,7 +5,6 @@ using Ixm.Nexus.Users.Application.Dto;
 using Ixm.Nexus.Users.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace Ixm.Nexus.Users.Api.Controllers
 {
     [Route("api/[controller]")]
