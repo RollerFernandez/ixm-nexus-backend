@@ -27,6 +27,27 @@
             };
         }
 
+        public async Task<dynamic> GetUser(string username, string password)
+        {
+            UserEntity? user = await context.UserEntity.AsQueryable().Where(x => x.Username == username && x.Password == password).FirstOrDefaultAsync();
+            List<RoleEntity> roles = new List<RoleEntity>();
+            List<string> permissions = new List<string>();
+
+            if(user != null)
+            {
+                roles = (from a in context.RoleEntity.ToList()
+                          join b in context.UserRoleEntity.ToList() on a.Id equals b.RoleId
+                          where b.UserId == user.Id select a).ToList();
+                permissions = (from a in context.PermissionEntity.ToList()
+                                 join b in context.RolePermissionEntity.ToList() on a.Id equals b.PermissionId
+                                 join c in context.UserRoleEntity.ToList() on b.RoleId equals c.RoleId
+                                 where c.UserId == user.Id
+                                 select a.Description).Distinct().ToList();
+            }
+
+            return new { user , roles, permissions };
+
+        }
         public async Task<UserEntity> GetByCode(string codigo)
         {
             return await context.UserEntity.AsQueryable().Where(x => x.Name == codigo).FirstOrDefaultAsync();
