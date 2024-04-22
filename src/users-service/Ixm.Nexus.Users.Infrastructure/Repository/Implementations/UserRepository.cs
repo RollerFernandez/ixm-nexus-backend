@@ -29,23 +29,29 @@
 
         public async Task<dynamic> GetUser(string username, string password)
         {
-            UserEntity? user = await context.UserEntity.AsQueryable().Where(x => x.Username == username && x.Password == password).FirstOrDefaultAsync();
+
+            var query = (from a in context.UserEntity
+                               join b in context.UserRoleEntity on a.Id equals b.UserId
+                               join c in context.RoleEntity on b.RoleId equals c.Id
+                               join d in context.RolePermissionEntity on c.Id equals d.RoleId
+                               join e in context.PermissionEntity on d.PermissionId equals e.Id
+                               where a.Username == username && a.Password == password && a.Status == "A"
+                               select new { user = a, roles = c, permissions = e }).AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            UserEntity? user = null;
             List<RoleEntity> roles = new List<RoleEntity>();
             List<string> permissions = new List<string>();
 
-            if(user != null)
+            if (result.Count > 0)
             {
-                roles = (from a in context.RoleEntity.ToList()
-                          join b in context.UserRoleEntity.ToList() on a.Id equals b.RoleId
-                          where b.UserId == user.Id select a).ToList();
-                permissions = (from a in context.PermissionEntity.ToList()
-                                 join b in context.RolePermissionEntity.ToList() on a.Id equals b.PermissionId
-                                 join c in context.UserRoleEntity.ToList() on b.RoleId equals c.RoleId
-                                 where c.UserId == user.Id
-                                 select a.Description).Distinct().ToList();
+                user = result.Select(x => x.user).FirstOrDefault();
+                roles = result.Select(x => x.roles).Distinct().ToList();
+                permissions = result.Select(x => x.permissions.Description).Distinct().ToList();
             }
 
-            return new { user , roles, permissions };
+            return new { user, roles, permissions };
 
         }
         public async Task<UserEntity> GetByCode(string codigo)
