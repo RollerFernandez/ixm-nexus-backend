@@ -1,10 +1,4 @@
-using Autofac.Extensions.DependencyInjection;
-using Autofac;
-using Ixm.Nexus.Users.Infrastructure.Cores;
-using Ixm.Nexus.Users.Application.Interfaces;
-using Ixm.Nexus.Users.Application.Implementations;
-using Ixm.Nexus.Users.Infrastructure.Repository.Implementations.Data;
-using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,19 +10,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAplicationServices(builder.Configuration);
 
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    var unused = options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(options => {
-        var unused = options.RegisterModule(new InfrastructureAutoFacModule());
-        var unused1 = options.RegisterType<UserApplication>().As<IUserApplication>();
-        //options.RegisterModule(new ApplicationAutoFacModule());
-        //options.RegisterModule(new ExceptionMiddleware());
-    });
+        options.RegisterModule(new InfrastructureAutoFacModule());
+        options.RegisterModule(new ApplicationAutoFacModule());
+});
 
 var app = builder.Build();
 

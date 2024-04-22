@@ -5,5 +5,6 @@
         Task<ResponseDTO> ListUsers(int Pagina, int Limite);
         Task<ResponseDTO> GetUser(string username, string password);
         Task<ResponseDTO> RegisterUser(UserEntity u);
+        Task<ResponseDTO> Login(string email, string password);
 }
 }

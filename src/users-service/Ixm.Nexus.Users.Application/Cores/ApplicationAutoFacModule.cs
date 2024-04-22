@@ -1,5 +1,7 @@
-﻿namespace Ixm.Nexus.Users.Infrastructure.Cores;
-public class InfrastructureAutoFacModule : Autofac.Module
+﻿using System.Reflection;
+
+namespace Ixm.Nexus.Users.Application.Cores;
+public class ApplicationAutoFacModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {

@@ -1,4 +1,6 @@
-﻿namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
+﻿using System.Reflection.Metadata;
+
+namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
 {
    
     public class UserRepository : BaseRepository<UserEntity>, IUserRepository
@@ -57,6 +59,13 @@
         public async Task<UserEntity> GetByCode(string codigo)
         {
             return await context.UserEntity.AsQueryable().Where(x => x.Name == codigo).FirstOrDefaultAsync();
+        }
+
+        public async Task<UserEntity> Login(string email, string password) {
+            return await context.UserEntity
+                .AsQueryable()
+                .Where(w => w.Email == email && w.Password == password && !w.IsLocked && w.Status == Commons.Constants.Core.UserStatus.ACTIVE)
+                .FirstOrDefaultAsync();
         }
     }
 }

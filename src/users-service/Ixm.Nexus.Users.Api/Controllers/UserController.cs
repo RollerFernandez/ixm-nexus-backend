@@ -1,9 +1,5 @@
-﻿using Autofac;
-using Ixm.Nexus.Commons;
-using Ixm.Nexus.Commons.Exceptions;
-using Ixm.Nexus.Users.Application.Dto;
-using Ixm.Nexus.Users.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿
+using Ixm.Nexus.Users.Application.Dto.UsersDto;
 
 namespace Ixm.Nexus.Users.Api.Controllers
 {
@@ -79,5 +75,12 @@ namespace Ixm.Nexus.Users.Api.Controllers
 
             return new JsonResult(response);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(RequestLoginDto requestLogin) {
+            ResponseDTO response = await UserApplication.Login(requestLogin.Email, requestLogin.Password);
+            return new JsonResult(response);
+        }
+
     }
 }

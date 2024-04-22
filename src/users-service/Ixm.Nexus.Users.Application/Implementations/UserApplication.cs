@@ -1,4 +1,6 @@
 ﻿
+using Ixm.Nexus.Users.Application.Dto.UsersDto;
+
 namespace Ixm.Nexus.Users.Application.Implementations
 {
     public class UserApplication : IUserApplication
@@ -6,12 +8,14 @@ namespace Ixm.Nexus.Users.Application.Implementations
         private readonly Lazy<IUnitOfWork> _unitOfWork;
         private readonly Lazy<IHttpContextAccessor> _httpContext;
         private readonly AppSettings _settings;
+        private readonly IMapper _mapper;
 
-        public UserApplication(IOptions<AppSettings> appSettings, ILifetimeScope lifetimeScope)
+        public UserApplication(IOptions<AppSettings> appSettings, ILifetimeScope lifetimeScope, IMapper mapper)
         {
             _settings = appSettings.Value;
             _httpContext = new Lazy<IHttpContextAccessor>(() => lifetimeScope.Resolve<IHttpContextAccessor>());
             _unitOfWork = new Lazy<IUnitOfWork>(() => lifetimeScope.Resolve<IUnitOfWork>());
+            _mapper = mapper;
         }
 
         private ClaimsPrincipal UserIdentity
@@ -50,6 +54,18 @@ namespace Ixm.Nexus.Users.Application.Implementations
 
             response.data = userEntity;
             return response;
+        }
+
+        public async Task<ResponseDTO> Login(string email, string password) {
+
+            //Agregar validacion de usuario
+
+            UserDto record = _mapper.Map<UserDto>(await UserRepository.Login(email, password));
+
+            return new()
+            {
+                data = record
+            };
         }
     }
 }
