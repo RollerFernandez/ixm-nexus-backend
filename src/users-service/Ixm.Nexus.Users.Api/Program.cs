@@ -1,11 +1,7 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using Ixm.Nexus.Users.Infrastructure.Cores;
-using Ixm.Nexus.Users.Application.Interfaces;
-using Ixm.Nexus.Users.Application.Implementations;
-using Ixm.Nexus.Users.Infrastructure.Repository.Implementations.Data;
-using Microsoft.EntityFrameworkCore;
+using Autofac.Extensions.DependencyInjection;
 using Ixm.Nexus.Users.Application.Cores;
+using Ixm.Nexus.Users.Infrastructure.Cores;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +13,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAplicationServices(builder.Configuration);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(options => {
         var inf = options.RegisterModule(new InfrastructureAutoFacModule());
         var app = options.RegisterModule(new ApplicationAutoFacModule());
-        //options.RegisterModule(new ApplicationAutoFacModule());
-        //options.RegisterModule(new ExceptionMiddleware());
     });
 
 var app = builder.Build();
