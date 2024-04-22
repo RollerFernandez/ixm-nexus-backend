@@ -1,4 +1,6 @@
 ﻿
+using Ixm.Nexus.Users.Application.Dto.UsersDto;
+
 namespace Ixm.Nexus.Users.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -45,9 +47,9 @@ namespace Ixm.Nexus.Users.Api.Controllers
             return new JsonResult(response);
         }
 
-        [HttpGet("login/{email}/{password}")]
-        public async Task<IActionResult> Login(string email, string password) {
-            ResponseDTO response = await UserApplication.Login(email, password);
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(RequestLoginDto requestLogin) {
+            ResponseDTO response = await UserApplication.Login(requestLogin.Email, requestLogin.Password);
             return new JsonResult(response);
         }
 
