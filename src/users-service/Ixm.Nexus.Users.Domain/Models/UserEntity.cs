@@ -1,6 +1,4 @@
-﻿using Ixm.Nexus.Users.Domain.Commons;
-
-namespace Ixm.Nexus.Users.Domain.Models
+﻿namespace Ixm.Nexus.Users.Domain.Models
 {
     
     public class UserEntity : Entity
