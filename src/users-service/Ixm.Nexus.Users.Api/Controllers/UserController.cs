@@ -29,17 +29,17 @@ namespace Ixm.Nexus.Users.Api.Controllers
             }
             catch (FunctionalException ex)
             {
-                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                response = new ResponseDTO { status = ex.Status, success = false, data = ex.Data, transactionId = ex.TransactionId };
                 _logger.LogWarning(ex.TransactionId, ex.Message, ex);
             }
             catch (TechnicalException ex)
             {
-                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                response = new ResponseDTO { status = ex.Status, success = false, data = ex.Data, transactionId = ex.TransactionId };
                 _logger.LogError(ex.TransactionId, ex.Message, ex);
             }
             catch (Exception ex)
             {
-                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, sucess = false };
+                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, success = false };
                 _logger.LogError(response.transactionId, ex.Message, ex);
             }
 
@@ -58,17 +58,17 @@ namespace Ixm.Nexus.Users.Api.Controllers
             }
             catch (FunctionalException ex)
             {
-                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                response = new ResponseDTO { status = ex.Status, success = false, data = ex.Data, transactionId = ex.TransactionId };
                 _logger.LogWarning(ex.TransactionId, ex.Message, ex);
             }
             catch (TechnicalException ex)
             {
-                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                response = new ResponseDTO { status = ex.Status, success = false, data = ex.Data, transactionId = ex.TransactionId };
                 _logger.LogError(ex.TransactionId, ex.Message, ex);
             }
             catch (Exception ex)
             {
-                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, sucess = false };
+                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, success = false };
                 _logger.LogError(response.transactionId, ex.Message, ex);
             }
 

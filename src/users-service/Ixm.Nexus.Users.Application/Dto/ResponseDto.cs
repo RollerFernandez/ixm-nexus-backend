@@ -1,5 +1,4 @@
 ﻿using Ixm.Nexus.Commons;
-using static Ixm.Nexus.Commons.Constants;
 using static Ixm.Nexus.Commons.Constants.Common;
 
 namespace Ixm.Nexus.Users.Application.Dto
@@ -9,13 +8,13 @@ namespace Ixm.Nexus.Users.Application.Dto
         public ResponseDTO()
         {
             this.status = StatusResponse.OK;
-            this.sucess = true;
+            this.success = true;
             this.transactionId = DateTime.Now.ToString(Constants.Core.DateTimeFormats.DD_MM_YYYY_HH_MM_SS_FFF);
         }
 
         public string transactionId { get; set; }
         public int status { get; set; }
-        public bool sucess { get; set; }
+        public bool success { get; set; }
         public dynamic data { get; set; }
     }
 }
