@@ -34,7 +34,7 @@ namespace Ixm.Nexus.Commons
 
             public struct UserStatus
             {
-                public const string ACTIVO = "A";
+                public const string ACTIVE = "A";
             }
 
             public struct DateTimeFormats

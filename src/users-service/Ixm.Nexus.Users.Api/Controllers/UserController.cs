@@ -44,5 +44,12 @@ namespace Ixm.Nexus.Users.Api.Controllers
 
             return new JsonResult(response);
         }
+
+        [HttpGet("login/{email}/{password}")]
+        public async Task<IActionResult> Login(string email, string password) {
+            ResponseDTO response = await UserApplication.Login(email, password);
+            return new JsonResult(response);
+        }
+
     }
 }

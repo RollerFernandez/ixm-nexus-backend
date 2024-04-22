@@ -2,6 +2,7 @@
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.Options;
 global using System.Security.Claims;
+global using AutoMapper;
 
 global using Ixm.Nexus.Commons.Configurations;
 global using Ixm.Nexus.Users.Application.Interfaces;
