@@ -31,6 +31,13 @@ namespace Ixm.Nexus.Users.Application.Implementations
             return response;
         }
 
+        public async Task<ResponseDTO> GetUser(string username, string password)
+        {
+            var response = new ResponseDTO();
+            response.data = await UserRepository.GetUser(username, password);
+            return response;
+        }
+
         public async Task<ResponseDTO> RegisterUser(UserEntity u)
         {
             var response = new ResponseDTO();

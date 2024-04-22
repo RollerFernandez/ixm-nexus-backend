@@ -29,6 +29,33 @@ namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
             };
         }
 
+        public async Task<dynamic> GetUser(string username, string password)
+        {
+
+            var query = (from a in context.UserEntity
+                               join b in context.UserRoleEntity on a.Id equals b.UserId
+                               join c in context.RoleEntity on b.RoleId equals c.Id
+                               join d in context.RolePermissionEntity on c.Id equals d.RoleId
+                               join e in context.PermissionEntity on d.PermissionId equals e.Id
+                               where a.Username == username && a.Password == password && a.Status == "A"
+                               select new { user = a, roles = c, permissions = e }).AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            UserEntity? user = null;
+            List<RoleEntity> roles = new List<RoleEntity>();
+            List<string> permissions = new List<string>();
+
+            if (result.Count > 0)
+            {
+                user = result.Select(x => x.user).FirstOrDefault();
+                roles = result.Select(x => x.roles).Distinct().ToList();
+                permissions = result.Select(x => x.permissions.Description).Distinct().ToList();
+            }
+
+            return new { user, roles, permissions };
+
+        }
         public async Task<UserEntity> GetByCode(string codigo)
         {
             return await context.UserEntity.AsQueryable().Where(x => x.Name == codigo).FirstOrDefaultAsync();

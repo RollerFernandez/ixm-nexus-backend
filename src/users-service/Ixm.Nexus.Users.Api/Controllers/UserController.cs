@@ -18,7 +18,7 @@ namespace Ixm.Nexus.Users.Api.Controllers
 
         private IUserApplication UserApplication => _userApplication.Value;
 
-        [HttpGet]
+        [HttpGet("list")]
         public async Task<IActionResult> ListofUsers()
         {
             ResponseDTO response;
@@ -26,6 +26,35 @@ namespace Ixm.Nexus.Users.Api.Controllers
             try
             {
                 response = await UserApplication.ListUsers(1, 10);
+            }
+            catch (FunctionalException ex)
+            {
+                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                _logger.LogWarning(ex.TransactionId, ex.Message, ex);
+            }
+            catch (TechnicalException ex)
+            {
+                response = new ResponseDTO { status = ex.Status, sucess = false, data = ex.Data, transactionId = ex.TransactionId };
+                _logger.LogError(ex.TransactionId, ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                response = new ResponseDTO { status = Constants.Common.StatusResponse.TECNICAL_ERROR, sucess = false };
+                _logger.LogError(response.transactionId, ex.Message, ex);
+            }
+
+
+            return new JsonResult(response);
+        }
+
+        [HttpGet("get-user")]
+        public async Task<IActionResult> GetUser()
+        {
+            ResponseDTO response;
+
+            try
+            {
+                response = await UserApplication.GetUser("gmarti", "123456");
             }
             catch (FunctionalException ex)
             {
