@@ -9,13 +9,15 @@ namespace Ixm.Nexus.Users.Application.Implementations
         private readonly Lazy<IHttpContextAccessor> _httpContext;
         private readonly AppSettings _settings;
         private readonly IMapper _mapper;
+        private readonly ISecurityService _securityService;
 
-        public UserApplication(IOptions<AppSettings> appSettings, ILifetimeScope lifetimeScope, IMapper mapper)
+        public UserApplication(IOptions<AppSettings> appSettings, ILifetimeScope lifetimeScope, IMapper mapper, ISecurityService securityService)
         {
             _settings = appSettings.Value;
             _httpContext = new Lazy<IHttpContextAccessor>(() => lifetimeScope.Resolve<IHttpContextAccessor>());
             _unitOfWork = new Lazy<IUnitOfWork>(() => lifetimeScope.Resolve<IUnitOfWork>());
             _mapper = mapper;
+            _securityService = securityService;
         }
 
         private ClaimsPrincipal UserIdentity
@@ -61,6 +63,10 @@ namespace Ixm.Nexus.Users.Application.Implementations
             //Agregar validacion de usuario
 
             UserDto record = _mapper.Map<UserDto>(await UserRepository.Login(email, password));
+
+            SecurityDto security = _securityService.JwtSecurity(_settings.JWTokenConfiguration.Secret, record.Email);
+            record.AccessToken = security.AccessToken;
+            record.ExpirationDate = security.ExpireOn;
 
             return new()
             {

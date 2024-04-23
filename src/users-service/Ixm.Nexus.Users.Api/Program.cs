@@ -15,8 +15,8 @@ builder.Services.AddAplicationServices(builder.Configuration);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(options => {
-        options.RegisterModule(new InfrastructureAutoFacModule());
-        options.RegisterModule(new ApplicationAutoFacModule());
+        _ = options.RegisterModule(new InfrastructureAutoFacModule());
+        _ = options.RegisterModule(new ApplicationAutoFacModule());
 });
 
 builder.Services.AddCors(options =>
@@ -24,9 +24,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(MyAllowSpecificOrigins,
                           policy =>
                           {
-                              policy.WithOrigins("http://localhost:4200")
-                                                  .AllowAnyHeader()
-                                                  .AllowAnyMethod();
+                              _ = policy
+                              .WithOrigins(builder.Configuration["Cors:Origins"]!.ToString())
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
                           });
 });
 

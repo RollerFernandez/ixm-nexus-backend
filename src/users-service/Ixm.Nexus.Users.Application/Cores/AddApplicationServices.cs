@@ -9,6 +9,8 @@ public static class AddApplicationServices
 
         IServiceCollection serviceCollection = services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+        _ = services.Configure<AppSettings>(opt => configuration.GetSection(AppSettings.Name).Bind(opt));
+
         return services;
     }
 }
