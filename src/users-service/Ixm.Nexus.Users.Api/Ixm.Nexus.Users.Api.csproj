@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Middleware\Ixm.Nexus.ExceptionHandling\Ixm.Nexus.ExceptionHandling.csproj" />
     <ProjectReference Include="..\Ixm.Nexus.Users.Application\Ixm.Nexus.Users.Application.csproj" />
   </ItemGroup>
 

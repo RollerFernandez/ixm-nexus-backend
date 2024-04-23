@@ -1,4 +1,5 @@
 ﻿
+using Ixm.Nexus.Commons.Exceptions;
 using Ixm.Nexus.Users.Application.Dto.UsersDto;
 
 namespace Ixm.Nexus.Users.Application.Implementations
@@ -61,8 +62,14 @@ namespace Ixm.Nexus.Users.Application.Implementations
         public async Task<ResponseDTO> Login(string email, string password) {
 
             //Agregar validacion de usuario
+            int mailValidation = await UserRepository.ValidateMail(email);
+            if (mailValidation == 0) throw new FunctionalException(Constants.Common.Messages.Security.ErrorValidatingMail);
 
-            UserDto record = _mapper.Map<UserDto>(await UserRepository.Login(email, password));
+            UserEntity recordDb = await UserRepository.Login(email, password) ?? throw new FunctionalException(Constants.Common.Messages.Security.IncorrectPassword);
+            UserDto record = _mapper.Map<UserDto>(recordDb);
+
+            //bool isCorrect = _securityService.VerifyHashedPassword(email, recordDb.Password, password);
+            //if(!isCorrect) throw new FunctionalException(Constants.Common.Messages.Security.IncorrectPassword);
 
             SecurityDto security = _securityService.JwtSecurity(_settings.JWTokenConfiguration.Secret, record.Email);
             record.AccessToken = security.AccessToken;

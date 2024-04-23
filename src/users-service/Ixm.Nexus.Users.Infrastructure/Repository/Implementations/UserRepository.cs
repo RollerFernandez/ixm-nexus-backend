@@ -1,8 +1,6 @@
-﻿using System.Reflection.Metadata;
-
-namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
+﻿namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
 {
-   
+
     public class UserRepository : BaseRepository<UserEntity>, IUserRepository
     {
         private readonly DataContext context;
@@ -59,6 +57,13 @@ namespace Ixm.Nexus.Users.Infrastructure.Repository.Implementations
         public async Task<UserEntity> GetByCode(string codigo)
         {
             return await context.UserEntity.AsQueryable().Where(x => x.Name == codigo).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> ValidateMail(string email) {
+            return await context.UserEntity
+                .AsQueryable()
+                .Where(w => w.Email == email && !w.IsLocked && w.Status == Commons.Constants.Core.UserStatus.ACTIVE)
+                .CountAsync();
         }
 
         public async Task<UserEntity> Login(string email, string password) {

@@ -154,6 +154,9 @@ namespace Ixm.Nexus.Commons
                     public const string UserInactive = "No se encontró entrada";
                     public const string ContrasenTamanioMinimo = "HPDAA0284E";
                     public const string ContrasenCaracteresEspeciales = "HPDAA0285E";
+
+                    public const string ErrorValidatingMail = "Unregistered email";
+                    public const string IncorrectPassword = "Incorrect password";
                 }
             }
 
